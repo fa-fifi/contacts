@@ -1,11 +1,11 @@
 import 'package:contacts/models/contact.dart';
 import 'package:contacts/utils/constants.dart';
-import 'package:contacts/utils/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controllers/contacts.dart';
 import '../controllers/settings.dart';
 import '../services/service_locator.dart';
+import '../widgets/avatar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -15,28 +15,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
   final ContactsController contactsController = getIt<ContactsController>();
   final SettingsController settingsController = getIt<SettingsController>();
 
   Widget _buildList(ContactModel contact) {
-    return ListTile(
-      onTap: () {},
-      leading: CircleAvatar(
-        backgroundColor: Colors
-            .primaries[int.parse(contact.phone[contact.phone.length - 1])],
-        foregroundColor: Colors.white,
-        child: Text(
-          contact.user.getInitials(),
+    return Visibility(
+      visible: contact.user.toLowerCase().contains(searchController.text) ||
+          contact.phone.toLowerCase().contains(searchController.text),
+      child: ListTile(
+        onTap: () {},
+        leading: Avatar(contact: contact),
+        title: Text(
+          contact.user,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-      ),
-      title: Text(
-        contact.user,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      ),
-      subtitle: Text(contact.phone),
-      trailing: Text(
-        DateFormat('d MMM y hh:mm a').format(contact.checkin),
-        style: Theme.of(context).textTheme.bodySmall,
+        subtitle: Text(contact.phone),
+        trailing: Text(
+          DateFormat('d MMM y hh:mm a').format(contact.checkin),
+          style: Theme.of(context).textTheme.bodySmall,
+        ),
       ),
     );
   }
@@ -44,39 +42,39 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _buildDialog(BuildContext context) {
     return showDialog<void>(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           contentPadding: const EdgeInsets.symmetric(vertical: 15),
           title: const Text('Sort by'),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           content: ValueListenableBuilder(
-              valueListenable: settingsController.sort,
-              builder: (context, value, _) {
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    RadioListTile<Sort>(
-                        value: Sort.none,
-                        groupValue: value,
-                        title: const Text('Default'),
-                        onChanged: (val) =>
-                            settingsController.change(Sort.none)),
-                    RadioListTile<Sort>(
-                        value: Sort.newest,
-                        groupValue: value,
-                        title: const Text('Newest'),
-                        onChanged: (val) =>
-                            settingsController.change(Sort.newest)),
-                    RadioListTile<Sort>(
-                        value: Sort.oldest,
-                        groupValue: value,
-                        title: const Text('Oldest'),
-                        onChanged: (val) =>
-                            settingsController.change(Sort.oldest)),
-                  ],
-                );
-              }),
+            valueListenable: settingsController.sort,
+            builder: (context, value, _) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  RadioListTile<Sort>(
+                      value: Sort.none,
+                      groupValue: value,
+                      title: const Text('Default'),
+                      onChanged: (val) => settingsController.change(Sort.none)),
+                  RadioListTile<Sort>(
+                      value: Sort.newest,
+                      groupValue: value,
+                      title: const Text('Newest'),
+                      onChanged: (val) =>
+                          settingsController.change(Sort.newest)),
+                  RadioListTile<Sort>(
+                      value: Sort.oldest,
+                      groupValue: value,
+                      title: const Text('Oldest'),
+                      onChanged: (val) =>
+                          settingsController.change(Sort.oldest)),
+                ],
+              );
+            },
+          ),
         );
       },
     );
@@ -84,6 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    searchController.addListener(() => setState(() {}));
     contactsController.initialize();
     super.initState();
   }
@@ -108,6 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Padding(
               padding: const EdgeInsets.all(10),
               child: TextField(
+                controller: searchController,
                 onChanged: (str) {},
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),

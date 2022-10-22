@@ -13,6 +13,7 @@ class ContactsController {
     if (savedList != null) {
       list.value = savedList.map((e) => ContactModel.fromJson(e)).toList();
     }
+    sortBy(Sort.none);
   }
 
   void sortBy(Sort sort) {
