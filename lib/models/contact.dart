@@ -1,9 +1,9 @@
 class ContactModel {
-  final String user;
-  final String phone;
+  String user;
+  String phone;
   final DateTime checkin;
 
-  const ContactModel(
+  ContactModel(
       {required this.user, required this.phone, required this.checkin});
 
   ContactModel.fromJson(Map<String, dynamic> json)

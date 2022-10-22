@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../controllers/contacts.dart';
 import '../controllers/settings.dart';
+import '../models/sort.dart';
 import '../services/service_locator.dart';
 import '../widgets/avatar.dart';
+import 'add_contact.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -53,25 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, value, _) {
               return Column(
                 mainAxisSize: MainAxisSize.min,
-                children: [
-                  RadioListTile<Sort>(
-                      value: Sort.none,
-                      groupValue: value,
-                      title: const Text('Default'),
-                      onChanged: (val) => settingsController.change(Sort.none)),
-                  RadioListTile<Sort>(
-                      value: Sort.newest,
-                      groupValue: value,
-                      title: const Text('Newest'),
-                      onChanged: (val) =>
-                          settingsController.change(Sort.newest)),
-                  RadioListTile<Sort>(
-                      value: Sort.oldest,
-                      groupValue: value,
-                      title: const Text('Oldest'),
-                      onChanged: (val) =>
-                          settingsController.change(Sort.oldest)),
-                ],
+                children: SortEnum.values
+                    .map((sort) => RadioListTile<SortEnum>(
+                        value: sort,
+                        groupValue: value,
+                        title: Text(sort.name),
+                        onChanged: (val) => settingsController.change(sort)))
+                    .toList(),
               );
             },
           ),
@@ -95,7 +85,10 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: const Text(appTitle),
           actions: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+            IconButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AddContactScreen())),
+                icon: const Icon(Icons.add)),
             IconButton(
                 onPressed: () => _buildDialog(context),
                 icon: const Icon(Icons.filter_list)),
@@ -108,7 +101,6 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(10),
               child: TextField(
                 controller: searchController,
-                onChanged: (str) {},
                 decoration: const InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   hintText: 'Search',
