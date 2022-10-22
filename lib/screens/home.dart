@@ -2,6 +2,7 @@ import 'package:contacts/models/contact.dart';
 import 'package:contacts/utils/constants.dart';
 import 'package:contacts/utils/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import '../controllers/contacts.dart';
 import '../controllers/settings.dart';
 import '../services/service_locator.dart';
@@ -24,13 +25,19 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors
             .primaries[int.parse(contact.phone[contact.phone.length - 1])],
         foregroundColor: Colors.white,
-        child: Text(contact.user.getInitials()),
+        child: Text(
+          contact.user.getInitials(),
+        ),
       ),
       title: Text(
         contact.user,
         style: const TextStyle(fontWeight: FontWeight.bold),
       ),
       subtitle: Text(contact.phone),
+      trailing: Text(
+        DateFormat('d MMM y hh:mm a').format(contact.checkin),
+        style: Theme.of(context).textTheme.bodySmall,
+      ),
     );
   }
 
