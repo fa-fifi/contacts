@@ -2,8 +2,10 @@ import 'package:contacts/utils/constants.dart';
 import 'package:contacts/utils/themes.dart';
 import 'package:flutter/material.dart';
 import 'screens/home.dart';
+import 'services/service_locator.dart';
 
 void main() {
+  setupGetIt();
   runApp(const MyApp());
 }
 
