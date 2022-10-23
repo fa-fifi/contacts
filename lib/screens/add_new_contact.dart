@@ -5,14 +5,14 @@ import '../controllers/settings.dart';
 import '../services/service_locator.dart';
 import '../widgets/avatar.dart';
 
-class AddContactScreen extends StatefulWidget {
-  const AddContactScreen({super.key});
+class AddNewContactScreen extends StatefulWidget {
+  const AddNewContactScreen({super.key});
 
   @override
-  State<AddContactScreen> createState() => _AddContactScreenState();
+  State<AddNewContactScreen> createState() => _AddNewContactScreenState();
 }
 
-class _AddContactScreenState extends State<AddContactScreen> {
+class _AddNewContactScreenState extends State<AddNewContactScreen> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
   final ContactsController contactsController = getIt<ContactsController>();

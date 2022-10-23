@@ -27,6 +27,7 @@ class AppTheme {
         elevation: 0,
         backgroundColor: Colors.white,
         foregroundColor: Colors.black),
+    listTileTheme: const ListTileThemeData(iconColor: Colors.black),
     inputDecorationTheme: _inputDecorationTheme(),
   );
 
@@ -38,6 +39,7 @@ class AppTheme {
         elevation: 0,
         backgroundColor: Colors.black,
         foregroundColor: Colors.white),
+    listTileTheme: const ListTileThemeData(iconColor: Colors.white),
     inputDecorationTheme: _inputDecorationTheme(),
   );
 }
