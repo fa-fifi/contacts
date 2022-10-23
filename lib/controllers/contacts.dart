@@ -18,9 +18,9 @@ class ContactsController {
 
   void sortBy(SortEnum sort) {
     if (sort == SortEnum.newest) {
-      list.value.sort((a, b) => a.checkin.compareTo(b.checkin));
-    } else if (sort == SortEnum.oldest) {
       list.value.sort((b, a) => a.checkin.compareTo(b.checkin));
+    } else if (sort == SortEnum.oldest) {
+      list.value.sort((a, b) => a.checkin.compareTo(b.checkin));
     } else {
       list.value.sort((a, b) => a.user.compareTo(b.user));
     }

@@ -46,6 +46,11 @@ class _AddContactScreenState extends State<AddContactScreen> {
                   contactsController
                     ..add(newContact)
                     ..sortBy(settingsController.sort.value);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('New contact has been added.'),
+                    ),
+                  );
                 }
                 Navigator.pop(context);
               },
