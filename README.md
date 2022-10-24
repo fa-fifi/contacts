@@ -1,6 +1,6 @@
-# contacts
+# Contacts
 
-A new Flutter project.
+ADEV Ventures Technical Assessment
 
 ## Getting Started
 

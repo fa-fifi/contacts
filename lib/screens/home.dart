@@ -1,6 +1,8 @@
 import 'package:contacts/models/contact.dart';
 import 'package:contacts/screens/contact_info.dart';
+import 'package:contacts/screens/sprite_sheet_animation.dart';
 import 'package:contacts/utils/constants.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import '../controllers/contacts.dart';
 import '../controllers/settings.dart';
@@ -116,6 +118,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   }),
             ),
           ],
+        ),
+        floatingActionButton: FloatingActionButton.small(
+          onPressed: () {},
+          child: GameWidget(
+            game: SpriteSheetAnimation(),
+          ),
         ),
       ),
     );
