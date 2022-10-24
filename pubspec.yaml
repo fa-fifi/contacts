@@ -23,27 +23,6 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^2.0.0
-  flutter_native_splash: ^2.2.11
-
-flutter_native_splash:
-  color: "#2F39E0"
-  image: assets/images/splash.png
-  branding: assets/images/branding.png
-  branding_mode: bottom
-
-  color_dark: "#2F39E0"
-  image_dark: assets/images/splash.png
-  branding_dark: assets/images/branding.png
-  
-  android_12:
-    color: "#2F39E0"
-    image: assets/images/android12splash.png
-    branding: assets/images/branding.png
-
-    color_dark: "#2F39E0"
-    image_dark: assets/images/android12splash.png
-
-  android_screen_orientation: sensorPortrait
 
 flutter:
 

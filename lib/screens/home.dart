@@ -121,6 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         floatingActionButton: FloatingActionButton.small(
           onPressed: () {},
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          elevation: 0,
           child: GameWidget(
             game: SpriteSheetAnimation(),
           ),
